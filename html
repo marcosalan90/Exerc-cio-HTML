@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consulta de Endereço</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+#loading {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #555;
+}
+</style>
+
+<body>
+    <div class="container">
+        <h1>Consulta de Endereço pelo CEP</h1>
+        <form id="cepForm">
+            <label for="cep">CEP:</label>
+            <input type="text" id="cep" name="cep" required>
+            <button type="submit">Consultar</button>
+        </form>
+        <div id="loading" style="display: none;">Carregando...</div>
+        <div id="result" style="display: none;">
+            <table>
+                <tr><td>Rua:</td><td id="rua"></td></tr>
+                <tr><td>Bairro:</td><td id="bairro"></td></tr>
+                <tr><td>Cidade:</td><td id="cidade"></td></tr>
+                <tr><td>Estado:</td><td id="estado"></td></tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        document.getElementById('cepForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const cep = document.getElementById('cep').value;
+    if (cep) {
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('result').style.display = 'none';
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loading').style.display = 'none';
+                if (data.erro) {
+                    alert('CEP não encontrado!');
+                } else {
+                    document.getElementById('rua').textContent = data.logradouro;
+                    document.getElementById('bairro').textContent = data.bairro;
+                    document.getElementById('cidade').textContent = data.localidade;
+                    document.getElementById('estado').textContent = data.uf;
+                    document.getElementById('result').style.display = 'block';
+                }
+            })
+            .catch(error => {
+                document.getElementById('loading').style.display = 'none';
+                alert('Erro ao consultar o CEP!');
+            });
+    }
+});
+    </script>
+</body>
+</html>
