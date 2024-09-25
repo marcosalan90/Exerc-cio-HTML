@@ -7,7 +7,7 @@
 <style>
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,33 +16,33 @@ body {
 }
 
 .container {
-    background: #fff;
+    background: blue;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 0 10px red;
     text-align: center;
 }
 
 table {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 30px;
     border-collapse: collapse;
 }
 
 td {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid;
+    background-color: white;
 }
 
-#loading {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #555;
-}
 </style>
 
 <body>
     <div class="container">
+        <div>
+            <img
+              src="https://tfile.com.br/consultarcep.com.br/upload/img/logo.png"/>
+        </div>
         <h1>Consulta de Endereço pelo CEP</h1>
         <form id="cepForm">
             <label for="cep">CEP:</label>
